@@ -6,7 +6,7 @@ import * as dat from 'dat.gui'
 //loading
 
 const textureLoader = new THREE.TextureLoader();
-const normalTexture = textureLoader.load('./textures/NormalMap.png')
+const normalTexture = textureLoader.load('./textures/dot.png')
 // Debug
 const gui = new dat.GUI()
 
@@ -32,8 +32,8 @@ const sphere = new THREE.Mesh(geometry,material)
 scene.add(sphere)
 
 
-// const light1 = gui.addFolder('Light 1')
-// const light2 = gui.addFolder('Light2')
+const light1 = gui.addFolder('Light 1')
+const light2 = gui.addFolder('Light2')
 // Lights
 
 const pointLight = new THREE.PointLight(0xffffff, 0.1)
@@ -51,26 +51,26 @@ pointLight2.intensity = 2.15;
 scene.add(pointLight2)
 
 
-const pointLight3 = new THREE.PointLight(0xeb0909, 2)
+const pointLight3 = new THREE.PointLight(0xf0ff, 2)
 
-pointLight3.position.set(-1.86,1,-1.65,);
+pointLight3.position.set(-3.13,3,1.59,);
 pointLight3.intensity = 2.15;
 scene.add(pointLight3);
 
 
 
-// light2.add(pointLight3.position, 'y').min(-3).max(3).step(0.01);
-// light2.add(pointLight3.position, 'x').min(-6).max(6).step(0.01);
-// light2.add(pointLight3.position, 'z').min(-3).max(3).step(0.01);
-// light2.add(pointLight3, 'intensity').min(0).max(10).step(0.01);
+light2.add(pointLight3.position, 'y').min(-3).max(3).step(0.01);
+light2.add(pointLight3.position, 'x').min(-6).max(6).step(0.01);
+light2.add(pointLight3.position, 'z').min(-3).max(3).step(0.01);
+light2.add(pointLight3, 'intensity').min(0).max(10).step(0.01);
 
-// const light2Color = {
-//     color: 0xff0000
-// }
-// light2.addColor(light2Color, 'color')
-//     .onChange(() =>{
-//         pointLight3.color.set(light2Color.color)
-//     })
+const light2Color = {
+    color: 0xff0000
+}
+light2.addColor(light2Color, 'color')
+    .onChange(() =>{
+        pointLight3.color.set(light2Color.color)
+    })
 const pointLightHelper = new THREE.PointLightHelper(pointLight3, 1);
 const pointLightHelper2 = new THREE.PointLightHelper(pointLight2, 1);
 
@@ -109,8 +109,8 @@ camera.position.z = 2
 scene.add(camera)
 
 // Controls
-// const controls = new OrbitControls(camera, canvas)
-// controls.enableDamping = true
+const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
 
 /**
  * Renderer
@@ -161,7 +161,7 @@ const tick = () =>
     sphere.position.z += -.1 * (targetY- sphere.rotation.x)
 
     // Update Orbital Controls
-    // controls.update()
+    controls.update()
 
     // Render
     renderer.render(scene, camera)
